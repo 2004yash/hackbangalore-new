@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Approved investment requests</title>
+    <link rel="icon" href="navlogo.jpg" type="image/png">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Aleo:ital,wght@0,100..900;1,100..900&family=Gothic+A1&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Zilla+Slab:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+/* styles.css */
+/* styles.css */
+body {
+    font-family: "Gothic A1", sans-serif; /* Added sans-serif as fallback font */
+    margin: 0; /* Reset default margin */
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px; /* Added padding for better spacing */
+}
+
+ 
+.cards{
+    width: 85%;
+    height: 10px;
+    /* max-width: 500px; */
+}
+
+
+.card {
+    width: auto; /* Set the width to 100% minus the padding */
+    background-color: #f0f0f0;
+    border-radius: 20px !important; /* Reduced border-radius for a smoother look */
+    padding: 5px;
+    margin: 10px auto; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc; /* Added border */
+}
+
+.card:hover{
+    transform: scale(1.1,1.1);
+    box-shadow: 0 4px 8px rgba(42, 133, 252, 0.842);
+}
+
+.card {
+    transition: transform 0.3s ease; 
+}
+
+.cards:hover > .card:not(:hover){
+    filter: blur(1px);
+    transform : scale(0.9,0.9);
+}
+
+
+
+.card h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 16px;
+    color: #333;
+}
+
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <!-- Navbar section -->
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="navlogo.jpg" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                Approved requests
+            </a>
+        </div>
+    </nav>
+
+
+    <main>
+        <div class="cards">
+
+
+            <div class="card">
+                <div class="card-body">
+                    <h2>Food based NGO</h2>
+                    Calling investments for a food based NGO.
+                </div>
+            </div>
+
+
+            <div class="card">
+                <div class="card-body">
+                    <h2>Making blood donations to hospitals</h2>
+                    Calling investments to carry out a blood donation camp which would donate money to hospitals.
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <h2>Making blood donations to hospitals</h2>
+                    Calling investments to carry out a blood donation camp which would donate money to hospitals.
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <h2>Making blood donations to hospitals</h2>
+                    Calling investments to carry out a blood donation camp which would donate money to hospitals.
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <h2>Making blood donations to hospitals</h2>
+                    Calling investments to carry out a blood donation camp which would donate money to hospitals.
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <h2>Making blood donations to hospitals</h2>
+                    Calling investments to carry out a blood donation camp which would donate money to hospitals.
+                </div>
+            </div>
+            
+            
+            
+            
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
