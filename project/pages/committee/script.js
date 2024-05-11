@@ -84,6 +84,20 @@ function addCard(topic, oneLineDesc) {
 // }
 // getData();
 
-const data = require('../../server')
-console.log(data)
+// const data = require('./.../server')
+// console.log(data)
 // [...dataarr].forEach(ele => addCard(ele.problem, ele.solution))
+// const admin = require('../form/firebase')
+// const db = admin.firestore();
+//   const usersRef = db.collection("insideOut");
+
+//   // Create a new document in the collection
+//   const newUserRef = usersRef.doc(formData.email);
+
+//   // Set the data in the document to the values from the form
+//   await newUserRef.set(formData);
+//   const citiesRef = db.collection("insideOut");
+//   const snapshot = await citiesRef.get();
+//   snapshot.forEach((doc) => {
+//     const obj = { id: doc.id, ...doc.data()}
+//     dataarr.push(obj); })

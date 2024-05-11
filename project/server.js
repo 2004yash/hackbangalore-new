@@ -8,11 +8,12 @@ const addCard = require('./pages/committee/script')
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+
 // Middleware to parse incoming request bodies
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Serve static files (optional, if you have any)
-app.use(express.static("public"));
+app.use(express.static("pages/form"));
 
 // Route for serving the HTML form
 app.get("/", (req, res) => {
@@ -45,7 +46,7 @@ app.post("/submit", async (req, res) => {
 //   console.log(JSON.stringify(snapshot));
   // module.exports = {dataarr}
   // You can send a response back to the client if needed
-  res.sendFile(__dirname + "/pages/committee/index.html");
+  res.send("Our Committee will review and get back to you soon.");
 });
 
 // Start the server
