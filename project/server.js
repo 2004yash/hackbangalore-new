@@ -78,6 +78,25 @@ app.get("/accepted", async (req, res) => {
   }
 });
 
+app.get("/details", async (req, res) => {
+  try {
+    const db = admin.firestore();
+    const citiesRef = db.collection("Approved");
+    const snapshot = await citiesRef.get();
+    const dataarr = [];
+    snapshot.forEach((doc) => {
+      const obj = { id: doc.id, ...doc.data() };
+      dataarr.push(obj);
+    });
+
+    // Render the EJS template with dataarr
+    res.render("accepted", { dataarr: dataarr });
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 
 // Start the server
 app.listen(PORT, () => {
