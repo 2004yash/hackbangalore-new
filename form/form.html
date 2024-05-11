@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Example</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .form-container {
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container mt-5">
+  <div class="form-container">
+    <h2 class="text-center mb-4">Request Form</h2>
+    <form action="/submit" method="POST">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email">
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number:</label>
+        <input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter your phone number">
+      </div>
+      <div class="form-group">
+        <label for="problem">Problem Statement:</label>
+        <textarea class="form-control" id="problem" name="problem" rows="3" placeholder="Describe the problem"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="solution">Solution Proposal:</label>
+        <textarea class="form-control" id="solution" name="solution" rows="3" placeholder="Describe your proposed solution"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="amount">Required Amount:</label>
+        <input type="text" class="form-control" id="amount" name="amount" placeholder="Enter the investment amount required">
+      </div>
+      <div class="form-group">
+        <label for="accountNo">Account Number:</label>
+        <input type="text" class="form-control" id="accountNo" name="accountNo" placeholder="Enter your account number">
+      </div>
+      <div class="form-group">
+        <label for="ifsc">IFSC Code:</label>
+        <input type="text" class="form-control" id="ifsc" name="ifsc" placeholder="Enter IFSC code">
+      </div>
+      <div class="form-group">
+        <label for="accountName">Account Name:</label>
+        <input type="text" class="form-control" id="accountName" name="accountName" placeholder="Enter account name">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>
