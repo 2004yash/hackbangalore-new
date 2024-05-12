@@ -84,7 +84,7 @@ app.get("/accepted", async (req, res) => {
 app.get("/details", async (req, res) => {
   try {
     const db = admin.firestore();
-    const citiesRef = db.collection("Approved");
+    const citiesRef = db.collection("approved");
     const snapshot = await citiesRef.get();
     const dataarr = [];
     snapshot.forEach((doc) => {
