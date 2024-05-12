@@ -89,10 +89,9 @@
         /* Green color */
         color: white;
         border: none;
-        border-radius: 10%;
-        /* Rounded shape */
-        width: auto;
-        height: auto;
+        border-radius: 10%; /* Rounded shape */
+        width: 40px;
+        height: 40px;
         font-size: 20px;
         cursor: pointer;
         display: flex;
@@ -119,69 +118,50 @@
 
     <main>
         <div class="cards">
-            <% dataarr.forEach(item=> { %>
-                <div class="card">
-                    <div class="card-body">
-                        <h2>
-                            <%= item.problem %>
-                        </h2>
-                        <%= item.solution %>
-                    </div>
-                    <!-- Accept button with tick icon -->
-                    <button class="accept-btn">Accept</button>
+            <% dataarr.forEach(item => { email = item.email %>
+            <div class="card">
+                <div class="card-body">
+                    <h2><%= item.problem %></h2>
+                    <%= item.solution %>
                 </div>
-                <% }); %>
+                <!-- Accept button with tick icon -->
+                <button class="accept-btn" data-email=<%=email%>><i class="fas fa-check"></i></button>
+            </div>
+            <% }); %>
         </div>
     </main>
-
-
-    <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js"></script>
     <script>
-        // Initialize Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyDNojoDZv0sXVDKProM666bZVwgRvqXSWs",
-            authDomain: "hackbangalore-75fdc.firebaseapp.com",
-            projectId: "hackbangalore-75fdc",
-            storageBucket: "hackbangalore-75fdc.appspot.com",
-            messagingSenderId: "899181383871",
-            appId: "1:899181383871:web:b3f772eee7999a49a6b60a"
-        };
+        document.addEventListener('DOMContentLoaded', async () => {
+            const acceptButtons = await document.querySelectorAll('.accept-btn');
+            console.log("acceptButtons");
+            acceptButtons.forEach(button => {
+                button.addEventListener('click', async function() {
+                    const itemId = this.dataset.email;  // Get the data-id attribute of the clicked button
+                    console.log(itemId)
+                    try {
+                        const response = await fetch('/button-click', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ id: itemId })  // Send the item ID to the server
+                        });
         
-        firebase.initializeApp(firebaseConfig);
-
-        const insideOutDatabase = firebase.database().ref('insideOut');
-        const approvedDatabase = firebase.database().ref('approved');
-
-        // Function to handle click event of accept button
-        function handleAcceptButtonClick(key) {
-            // Retrieve the entire item data from insideOut database
-            insideOutDatabase.child(key).once('value', snapshot => {
-                const item = snapshot.val();
-
-                // Push the item data to the approved database
-                try {
-                 
-                approvedDatabase.push(item);
-                console.log("Data pushed successfully");   
-                } catch (error) {
-                    console.log("Failed to push data")
-                }
-            });
-        }
-
-        // Add event listener to all accept buttons
-        const acceptButtons = document.querySelectorAll('.accept-btn');
-        acceptButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                // Find the key associated with the item
-                const key = button.dataset.key;
-
-                // Call function to handle accept button click
-                handleAcceptButtonClick(key);
+                        if (response.ok) {
+                            const data = await response.json();
+                            console.log('Response from server:', data);
+                            // Optionally update the UI here to reflect changes
+                        } else {
+                            console.error('Server responded with error:', response.status, response.statusText);
+                        }
+                    } catch (error) {
+                        console.error('Failed to send request:', error);
+                    }
+                });
             });
         });
-    </script>
+        </script>
+        
 </body>
 
 </html>
