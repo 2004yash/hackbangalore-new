@@ -11,9 +11,9 @@ app.set("view engine", "ejs");
 
 // Middleware to parse incoming request bodies
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use(express.json());
 
+// app.use(express.static('crowdfunding/'))
 
 // Serve static files (optional, if you have any)
 app.use(express.static("pages/form"));
@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
 });
 
 // Route for serving the form page
-app.get("/pages/form", (req, res) => {
+app.get("/form", (req, res) => {
   res.sendFile(path.join(__dirname, 'pages', 'form', 'form.html'));
 });
 
@@ -88,29 +88,11 @@ app.get("/accepted", async (req, res) => {
   }
 });
 
-app.get("/details", async (req, res) => {
-  try {
-    const db = admin.firestore();
-    const citiesRef = db.collection("approved");
-    const snapshot = await citiesRef.get();
-    const dataarr = [];
-    snapshot.forEach((doc) => {
-      const obj = { id: doc.id, ...doc.data() };
-      dataarr.push(obj);
-    });
-
-    // Render the EJS template with dataarr
-    res.render("accepted", { dataarr: dataarr });
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    res.status(500).send("Internal Server Error");
-  }
-});
 
 app.post('/button-click', async (req, res) => {
-  console.log('Button clicked!');
+  // console.log('Button clicked!');
   const itemId = req.body.id; // Extracting the id sent from the client
-  console.log('Received ID:', itemId);
+  // console.log('Received ID:', itemId);
 
   try {
     const db = admin.firestore();
@@ -136,6 +118,33 @@ app.post('/button-click', async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
+app.post('/detail', async (req, res) => {
+  try {
+    const { email } = req.body;
+    console.log('Received email:', email);
+    arr=[]
+    // Fetch data from Firestore
+    const db = admin.firestore();
+    const approvedRef = db.collection("approved");
+    const docSnapshot = await approvedRef.doc(email).get();
+    
+    // Check if document exists
+    if (!docSnapshot.exists) {
+      throw new Error(`Document with email ${email} not found`);
+    }
+    arr.push(docSnapshot.data());
+    // Render the HTML template with data from docSnapshot
+    console.log("Yaha tak toh aa gya");
+    res.render('details', { item: arr });
+  } catch (error) {
+    console.error('Error rendering details page:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+app.get('/project/crowdfunding',(req, res) => {
+  res.sendFile(path.join(__dirname, "crowdfunding", "index.html"));
+})
 
 // Start the server
 app.listen(PORT, () => {
