@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const admin = require("./pages/form/firebase"); // Import the initialized admin object
 const ejs = require("ejs");
 const fs = require("fs");
-
+const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -18,10 +18,17 @@ app.use(express.json());
 // Serve static files (optional, if you have any)
 app.use(express.static("pages/form"));
 
-// Route for serving the HTML form
+app.use(express.static(path.join(__dirname, 'mainPage')));
+
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/index.html");
+  res.sendFile(path.join(__dirname, 'mainPage', 'index.html'));
 });
+
+// Route for serving the form page
+app.get("/pages/form", (req, res) => {
+  res.sendFile(path.join(__dirname, 'pages', 'form', 'form.html'));
+});
+
 
 // Route for handling form submission
 app.post("/submit", async (req, res) => {
