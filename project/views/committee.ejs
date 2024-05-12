@@ -86,7 +86,7 @@
         background-color: #28a745; /* Green color */
         color: white;
         border: none;
-        border-radius: 50%; /* Rounded shape */
+        border-radius: 10%; /* Rounded shape */
         width: 40px;
         height: 40px;
         font-size: 20px;
@@ -113,17 +113,49 @@
 
     <main>
         <div class="cards">
-            <% dataarr.forEach(item => { %>
+            <% dataarr.forEach(item => { email = item.email %>
             <div class="card">
                 <div class="card-body">
                     <h2><%= item.problem %></h2>
                     <%= item.solution %>
                 </div>
                 <!-- Accept button with tick icon -->
-                <button class="accept-btn"><i class="fas fa-check"></i></button>
+                <button class="accept-btn" data-email=<%=email%>><i class="fas fa-check"></i></button>
             </div>
             <% }); %>
         </div>
     </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const acceptButtons = await document.querySelectorAll('.accept-btn');
+            console.log("acceptButtons");
+            acceptButtons.forEach(button => {
+                button.addEventListener('click', async function() {
+                    const itemId = this.dataset.email;  // Get the data-id attribute of the clicked button
+                    console.log(itemId)
+                    try {
+                        const response = await fetch('/button-click', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ id: itemId })  // Send the item ID to the server
+                        });
+        
+                        if (response.ok) {
+                            const data = await response.json();
+                            console.log('Response from server:', data);
+                            // Optionally update the UI here to reflect changes
+                        } else {
+                            console.error('Server responded with error:', response.status, response.statusText);
+                        }
+                    } catch (error) {
+                        console.error('Failed to send request:', error);
+                    }
+                });
+            });
+        });
+        </script>
+        
 </body>
 </html>
