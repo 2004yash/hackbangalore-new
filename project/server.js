@@ -17,7 +17,7 @@ app.use(express.static("pages/form"));
 
 // Route for serving the HTML form
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/pages/form/form.html");
+  res.sendFile("../index.html");
 });
 
 // Route for handling form submission
@@ -62,7 +62,7 @@ app.get("/committee", async (req, res) => {
 app.get("/accepted", async (req, res) => {
   try {
     const db = admin.firestore();
-    const citiesRef = db.collection("Approved");
+    const citiesRef = db.collection("approved");
     const snapshot = await citiesRef.get();
     const dataarr = [];
     snapshot.forEach((doc) => {

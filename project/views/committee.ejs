@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -51,7 +52,8 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         border: 1px solid #ccc;
         /* Added border */
-        position: relative; /* Added position relative */
+        position: relative;
+        /* Added position relative */
     }
 
     .card:hover {
@@ -83,10 +85,12 @@
         position: absolute;
         top: 10px;
         right: 10px;
-        background-color: #28a745; /* Green color */
+        background-color: #28a745;
+        /* Green color */
         color: white;
         border: none;
-        border-radius: 10%; /* Rounded shape */
+        border-radius: 10%;
+        /* Rounded shape */
         width: auto;
         height: auto;
         font-size: 20px;
@@ -97,9 +101,11 @@
     }
 
     .accept-btn:hover {
-        background-color: #218838; /* Darker green on hover */
+        background-color: #218838;
+        /* Darker green on hover */
     }
 </style>
+
 <body>
     <!-- Navbar section -->
     <nav class="navbar navbar-light bg-light">
@@ -113,17 +119,69 @@
 
     <main>
         <div class="cards">
-            <% dataarr.forEach(item => { %>
-            <div class="card">
-                <div class="card-body">
-                    <h2><%= item.problem %></h2>
-                    <%= item.solution %>
+            <% dataarr.forEach(item=> { %>
+                <div class="card">
+                    <div class="card-body">
+                        <h2>
+                            <%= item.problem %>
+                        </h2>
+                        <%= item.solution %>
+                    </div>
+                    <!-- Accept button with tick icon -->
+                    <button class="accept-btn">Accept</button>
                 </div>
-                <!-- Accept button with tick icon -->
-                <button class="accept-btn">Accept</button>
-            </div>
-            <% }); %>
+                <% }); %>
         </div>
     </main>
+
+
+    <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js"></script>
+    <script>
+        // Initialize Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDNojoDZv0sXVDKProM666bZVwgRvqXSWs",
+            authDomain: "hackbangalore-75fdc.firebaseapp.com",
+            projectId: "hackbangalore-75fdc",
+            storageBucket: "hackbangalore-75fdc.appspot.com",
+            messagingSenderId: "899181383871",
+            appId: "1:899181383871:web:b3f772eee7999a49a6b60a"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+
+        const insideOutDatabase = firebase.database().ref('insideOut');
+        const approvedDatabase = firebase.database().ref('approved');
+
+        // Function to handle click event of accept button
+        function handleAcceptButtonClick(key) {
+            // Retrieve the entire item data from insideOut database
+            insideOutDatabase.child(key).once('value', snapshot => {
+                const item = snapshot.val();
+
+                // Push the item data to the approved database
+                try {
+                 
+                approvedDatabase.push(item);
+                console.log("Data pushed successfully");   
+                } catch (error) {
+                    console.log("Failed to push data")
+                }
+            });
+        }
+
+        // Add event listener to all accept buttons
+        const acceptButtons = document.querySelectorAll('.accept-btn');
+        acceptButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                // Find the key associated with the item
+                const key = button.dataset.key;
+
+                // Call function to handle accept button click
+                handleAcceptButtonClick(key);
+            });
+        });
+    </script>
 </body>
+
 </html>
