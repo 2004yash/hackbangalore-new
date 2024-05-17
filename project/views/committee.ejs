@@ -1,0 +1,167 @@
+<!-- committee.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Review requests</title>
+    <link rel="icon" href="navlogo.jpg" type="image/png" />
+    <link rel="stylesheet" href="styles.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-g0Jm+ub4JYwBl6zF0FfG52d2Hn8jRlkvYGrH/pkSvSAjtsUGUf4gtmYbATSSP6h/KFpFCTWYxA6PRovDG4gU1Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Aleo:ital,wght@0,100..900;1,100..900&family=Gothic+A1&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Zilla+Slab:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap");
+
+    /* styles.css */
+    /* styles.css */
+    body {
+        font-family: "Gothic A1", sans-serif;
+        /* Added sans-serif as fallback font */
+        margin: 0;
+        /* Reset default margin */
+    }
+
+    main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        /* Added padding for better spacing */
+    }
+
+    .cards {
+        width: 85%;
+        height: 10px;
+        /* max-width: 500px; */
+    }
+
+    .card {
+        width: auto;
+        /* Set the width to 100% minus the padding */
+        background-color: #f0f0f0;
+        border-radius: 20px !important;
+        /* Reduced border-radius for a smoother look */
+        padding: 5px;
+        margin: 10px auto;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border: 1px solid #ccc;
+        /* Added border */
+        position: relative;
+        /* Added position relative */
+    }
+
+    .card:hover {
+        transform: scale(1.1, 1.1);
+        box-shadow: 0 4px 8px rgba(42, 133, 252, 0.842);
+    }
+
+    .card {
+        transition: transform 0.3s ease;
+    }
+
+    .cards:hover>.card:not(:hover) {
+        filter: blur(1px);
+        transform: scale(0.9, 0.9);
+    }
+
+    .card h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .card p {
+        font-size: 16px;
+        color: #333;
+    }
+
+    /* New styles for accept button */
+    .accept-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #28a745;
+        /* Green color */
+        color: white;
+        border: none;
+        border-radius: 10%; /* Rounded shape */
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .accept-btn:hover {
+        background-color: #218838;
+        /* Darker green on hover */
+    }
+</style>
+
+<body>
+    <!-- Navbar section -->
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="navlogo.jpg" alt="" width="30" height="24" class="d-inline-block align-text-top" />
+                Requests that need approval
+            </a>
+        </div>
+    </nav>
+
+    <main>
+        <div class="cards">
+            <% dataarr.forEach(item => { email = item.email %>
+            <div class="card" href="/detail">
+                <div class="card-body">
+                    <h2><%= item.problem %></h2>
+                    <%= item.solution %>
+                </div>
+                <!-- Accept button with tick icon -->
+                <button class="accept-btn" data-email=<%=email%>><i class="fas fa-check"></i></button>
+            </div>
+            <% }); %>
+        </div>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const acceptButtons = await document.querySelectorAll('.accept-btn');
+            console.log("acceptButtons");
+            acceptButtons.forEach(button => {
+                button.addEventListener('click', async function() {
+                    const itemId = this.dataset.email;  // Get the data-id attribute of the clicked button
+                    console.log(itemId)
+                    try {
+                        const response = await fetch('/button-click', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ id: itemId })  // Send the item ID to the server
+                        });
+        
+                        if (response.ok) {
+                            const data = await response.json();
+                            console.log('Response from server:', data);
+                            // Optionally update the UI here to reflect changes
+                        } else {
+                            console.error('Server responded with error:', response.status, response.statusText);
+                        }
+                    } catch (error) {
+                        console.error('Failed to send request:', error);
+                    }
+                });
+            });
+        });
+        </script>
+        
+</body>
+
+</html>

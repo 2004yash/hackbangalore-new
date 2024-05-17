@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= item.problem %></title>
+</head>
+<body>
+
+    <header>
+        <h1><%= item.problem %></h1>
+    </header>
+
+    <main>
+        <p><%= item.solution %></p> <br>
+
+        <b> Amount required : </b> <%= item.amount %> <br>
+
+        <b>Contact details  : </b> <br>
+        <p><%= item.name %></p>
+        <p><%= item.email %></p>
+        <p><%= item.phone %></p> <br> <br>
+
+        <b>Account details : </b>
+        <p><%= item.accountName %></p>
+        <p><%= item.accountNo %></p>
+        <p><%= item.ifsc %></p>
+
+    </main>
+
+    <footer class=" flex-wrap justify-content-between align-items-center py-3 my-4 border-top custom-footer mb-0">
+        <div class="foot">
+          <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item poua"><a href="#" class="nav-link help">Home</a></li>
+            <li class="nav-item poua"><a href="#" class="nav-link help">Features</a></li>
+            <li class="nav-item poua"><a href="#" class="nav-link help">Pricing</a></li>
+            <li class="nav-item poua"><a href="#" class="nav-link help">FAQs</a></li>
+            <li class="nav-item poua"><a href="#" class="nav-link help">About</a></li>
+          </ul>
+          <li class="nav-item poua" style="text-align: center;"><a href="#" class="nav-link help">© 2024 Company,
+              Inc</a></li>
+          <br>
+        </div>
+      </footer>
+
+    
+</body>
+</html>
