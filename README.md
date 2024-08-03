@@ -4,7 +4,7 @@
 ![image](https://github.com/user-attachments/assets/4daf33ce-f58a-4897-a9fe-8cb68de8aecc)
 
 
-# Crowd-Sourced Funding Platform
+# Social Investing Platform
 
 Welcome to our crowd-sourced funding platform repository! This project enables entrepreneurs to submit their innovative ideas and allows investors to browse and invest in these ideas through a streamlined dashboard, with real-time updates powered by Firebase.
 
